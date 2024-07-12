@@ -1,0 +1,17 @@
+.my-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.3s;
+  background-color: #cfe2ff;
+  color: #000;
+  border: 1px solid #cfe2ff;
+  &:hover {
+    background-color: #000;
+    color: #cfe2ff;
+  }
+}
+
+td {
+  vertical-align: middle;
+}

@@ -1,1 +1,12 @@
-<p>table works!</p>
+<table class="table table-bordered table-hover">
+  <thead class="table-primary">
+    <ng-container
+      [ngTemplateOutlet]="theaders"
+      [ngTemplateOutletContext]="{ $implicit: 'Guset' }"
+    >
+    </ng-container>
+  </thead>
+  <tbody>
+    <ng-container [ngTemplateOutlet]="tbody"> </ng-container>
+  </tbody>
+</table>
