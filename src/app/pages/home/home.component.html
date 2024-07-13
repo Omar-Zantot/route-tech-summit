@@ -8,18 +8,20 @@
         [theaders]="theadTemplate"
         [tbody]="tbodyTemplate"
         [customers]="allCustomers"
-        [customerTransactionAmounts]="customerTransactionAmout"
+        [customerTransactionAmount]="customerTransactionAmout"
+        [pagination]="true"
+        [search]="true"
       >
         <ng-template #theadTemplate>
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Total Transaction Amount</th>
-            <th>Transactions per day</th>
+            <th class="text-center">Total Transaction Amount</th>
+            <th class="text-center">Transactions per day</th>
           </tr>
         </ng-template>
-        <ng-template #tbodyTemplate>
-          <tr *ngFor="let customer of filteredCustomers; let i = index">
+        <ng-template let-customer let-i="i" #tbodyTemplate>
+          <tr>
             <td>{{ i + 1 }}</td>
             <td>{{ customer.name }}</td>
             <td class="text-center">

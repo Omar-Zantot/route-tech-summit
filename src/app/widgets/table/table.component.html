@@ -1,3 +1,21 @@
+@if(search){
+<div class="mb-3 row">
+  <label for="search" class="fw-bold col-xs-3 col-sm-auto col-form-label"
+    >Search :
+  </label>
+  <div class="col-md-9 col-sm-auto">
+    <input
+      type="text"
+      id="search"
+      class="form-control"
+      [(ngModel)]="searchTerm"
+      placeholder="Search by name or amount"
+      (keyup)="refreshTable()"
+    />
+  </div>
+</div>
+}
+
 <table class="table table-bordered table-hover">
   <thead class="table-primary">
     <ng-container
@@ -7,6 +25,36 @@
     </ng-container>
   </thead>
   <tbody>
-    <ng-container [ngTemplateOutlet]="tbody"> </ng-container>
+    @if (tableData.length > 0) { @for (item of tableData; track $index){
+    <ng-container
+      [ngTemplateOutlet]="tbody"
+      [ngTemplateOutletContext]="{ $implicit: item, i: $index }"
+    >
+    </ng-container>
+    } }@else{
+    <tr>
+      <td>🔴</td>
+      <td colspan="3">No results found.</td>
+    </tr>
+    }
   </tbody>
 </table>
+
+@if (pagination){
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    @for (item of [].constructor(paginationStatus.totalPages);track $index) {
+    <li
+      class="page-item"
+      [class]="{ active: paginationStatus.page === $index + 1 }"
+    >
+      <a class="page-link" href="#" (click)="changePage($index + 1)">{{
+        $index + 1
+      }}</a>
+    </li>
+    }
+  </ul>
+</nav>
+}
+
+<!-- ❌🚫⚠️ -->
