@@ -25,14 +25,16 @@ export class TableComponent implements OnChanges {
   @Input() theaders: TemplateRef<any> | null = null;
   @Input() tbody: TemplateRef<any> | null = null;
   @Input() customerTransactionAmount: { [key: string]: number } = {};
+  @Input() pageSize = 5;
   @Input() pagination = false;
   @Input() search = false;
+
   @Output() selectCustomer = new EventEmitter<string>();
 
   totalRecords = 0;
   paginationStatus: UITablePaginationStatus = {
     page: 1,
-    pageSize: 5,
+    pageSize: this.pageSize,
     totalPages: 0,
   };
   tableData: allCustomer = [];
