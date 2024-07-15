@@ -27,14 +27,10 @@ export class TransChartComponent
   chartData: { labels: string[]; data: number[] } = { labels: [], data: [] };
 
   ngOnInit(): void {
-    if (!this.customerTransaction) {
-      console.error('customerTransaction is undefined');
+    if (!this.customerTransaction || this.customerTransaction.length === 0) {
+      console.error('customerTransaction is undefined or empty');
       return;
     }
-    this.chartData = {
-      labels: this.customerTransaction.map((transaction) => transaction.date),
-      data: this.customerTransaction.map((transaction) => transaction.amount),
-    };
   }
 
   ngAfterViewInit(): void {
@@ -58,6 +54,10 @@ export class TransChartComponent
   }
 
   renderChart() {
+    this.chartData = {
+      labels: this.customerTransaction.map((transaction) => transaction.date),
+      data: this.customerTransaction.map((transaction) => transaction.amount),
+    };
     if (this.myChart) {
       this.myChart.destroy();
     }
