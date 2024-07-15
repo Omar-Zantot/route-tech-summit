@@ -1,4 +1,4 @@
-export const baseUrl = 'http://localhost:3000';
+export const baseUrl = 'https://api-snowy-six-76.vercel.app';
 export const customersUrl = baseUrl + '/customers';
 export const transactionsUrl = baseUrl + '/transactions';
 
