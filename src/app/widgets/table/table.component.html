@@ -28,7 +28,11 @@
     @if (tableData.length > 0) { @for (item of tableData; track $index){
     <ng-container
       [ngTemplateOutlet]="tbody"
-      [ngTemplateOutletContext]="{ $implicit: item, i: $index }"
+      [ngTemplateOutletContext]="{
+        $implicit: item,
+        i: $index,
+        onViewCustomer: onViewCustomer.bind(this)
+      }"
     >
     </ng-container>
     } }@else{

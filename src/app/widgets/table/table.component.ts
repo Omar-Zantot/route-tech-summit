@@ -29,7 +29,7 @@ export class TableComponent implements OnChanges {
   @Input() pagination = false;
   @Input() search = false;
 
-  @Output() selectCustomer = new EventEmitter<string>();
+  @Output() viewCustomer = new EventEmitter<number>();
 
   totalRecords = 0;
   paginationStatus: UITablePaginationStatus = {
@@ -96,5 +96,11 @@ export class TableComponent implements OnChanges {
       page: page,
     };
     this.refreshTable();
+  }
+
+  onViewCustomer(customerId: number): void {
+    console.log(customerId);
+
+    this.viewCustomer.emit(customerId);
   }
 }

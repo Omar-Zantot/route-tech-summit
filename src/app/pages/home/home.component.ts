@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService } from '../../services/customers.service';
-import { allCustomer } from '../../models/Customer';
+import { allCustomer, IChartData } from '../../models/Customer';
 import { TableComponent } from '../../widgets/table/table.component';
 import { CommonModule } from '@angular/common';
 import { TransactionsService } from '../../services/transactions.service';
 import { allTransaction } from '../../models/Transaction';
 import { forkJoin } from 'rxjs';
+import { TransChartComponent } from '../../widgets/trans-chart/trans-chart.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TableComponent, CommonModule],
+  imports: [TableComponent, CommonModule, TransChartComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   allTransaction: allTransaction = [];
 
   filteredCustomers: allCustomer = [];
-  OneCustomerTransaction: allTransaction = [];
+  OneCustomerTransaction: { date: string; amount: number }[] = [];
 
   customerTransactionAmout: { [key: string]: number } = {};
 
@@ -59,5 +60,18 @@ export class HomeComponent implements OnInit {
       },
       {} as { [key: string]: number }
     );
+  }
+
+  getCustomerTransactions(customerId: number) {
+    return this.allTransaction
+      .filter((transaction) => transaction.customer_id === +customerId)
+      .map((transaction) => ({
+        date: transaction.date,
+        amount: transaction.amount,
+      }));
+  }
+
+  onViewCustomer(customerId: number) {
+    this.OneCustomerTransaction = this.getCustomerTransactions(customerId);
   }
 }

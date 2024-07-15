@@ -12,36 +12,64 @@
         [pagination]="true"
         [search]="true"
         [pageSize]="5"
+        (viewCustomer)="onViewCustomer($event)"
       >
         <ng-template #theadTemplate>
           <tr>
-            <th>#</th>
+            <th>ID</th>
             <th>Name</th>
             <th class="text-center">Total Transaction Amount</th>
             <th class="text-center">Transactions per day</th>
           </tr>
         </ng-template>
-        <ng-template let-customer let-i="i" #tbodyTemplate>
+        <ng-template
+          #tbodyTemplate
+          let-customer
+          let-onViewCustomer="onViewCustomer"
+          let-i="i"
+        >
           <tr>
-            <td>{{ i + 1 }}</td>
+            <td>{{ customer.id }}</td>
             <td>{{ customer.name }}</td>
             <td class="text-center">
               {{ customerTransactionAmout[customer.id] || 0 }}
             </td>
-            <td class="text-center"><button class="my-btn">View</button></td>
+            <td class="text-center">
+              <button class="my-btn" (click)="onViewCustomer(customer.id)">
+                View
+              </button>
+            </td>
           </tr>
         </ng-template>
       </app-table>
 
-      <!-- <ng-template #viewCustomer>
-        <h3 class="text-center mt-3 text-primary-color">
-          Please click on View to show transactions graph.
-        </h3>
-      </ng-template> -->
-      <div class="viewCustomer">
-        <h3 class="text-center mt-3 text-primary-color">
-          Please click on View to show transactions graph.
-        </h3>
+      <!-- <div class="showchart">
+        @if(OneCustomerTransaction.length != 0){
+        <app-trans-chart
+          [customerTransaction]="OneCustomerTransaction"
+        ></app-trans-chart>
+
+        }@else {
+        <ng-template #viewCustomer>
+          <h3 class="text-center mt-3 text-primary-color">
+            Please click on View to show transactions graph.
+          </h3>
+        </ng-template>
+        }
+      </div> -->
+      <div class="text-center mt-3">
+        <ng-container
+          *ngIf="OneCustomerTransaction.length != 0; else viewCustomer"
+        >
+          <app-trans-chart
+            [customerTransaction]="OneCustomerTransaction"
+          ></app-trans-chart>
+        </ng-container>
+        <ng-template #viewCustomer>
+          <h3 class="text-primary-color">
+            Please click on View to show transactions graph.
+          </h3>
+        </ng-template>
       </div>
     </div>
   </div>
