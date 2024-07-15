@@ -39,11 +39,10 @@ export class TransChartComponent
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.myChart) {
-      this.myChart.destroy();
-    }
-
-    if (this.customerTransaction.length > 0) {
+    if (changes['customerTransaction'] && this.customerTransaction.length > 0) {
+      if (this.myChart) {
+        this.myChart.destroy();
+      }
       this.renderChart();
     }
   }
@@ -83,7 +82,7 @@ export class TransChartComponent
             display: true,
             position: 'top',
             labels: {
-              color: 'darked',
+              color: 'darkred',
               font: {
                 weight: 'bold',
               },
